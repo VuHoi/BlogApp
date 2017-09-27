@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">BlogApp</string>
+    <string name="country_prompt">Choose a Status</string>
+
+    <string-array name="status">
+        <item>Draff</item>
+        <item>Pending</item>
+        <item>Published</item>
+    </string-array>
 </resources>
