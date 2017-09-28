@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:background="@drawable/border_edittext"
+
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
     <RelativeLayout
         android:background="@drawable/border_edittext"
         android:padding="10dp"
@@ -44,6 +49,7 @@
     android:layout_marginTop="20dp"
     android:minHeight="50dp"
     android:hint="Chủ đề"
+    android:gravity="top"
 android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:paddingBottom="20dp"
@@ -57,40 +63,39 @@ android:paddingLeft="20dp"
         <EditText
             android:layout_below="@+id/edttitle"
             android:layout_marginTop="15dp"
-            android:minHeight="50dp"
+            android:minHeight="150dp"
             android:hint="Bạn đang nghĩ gì"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="20dp"
             android:id="@+id/edtInput"
+            android:gravity="top"
             android:paddingTop="10dp"
             android:layout_width="match_parent"
             android:background="@drawable/border_edittext"
             android:drawablePadding="20dp"
             android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_below="@+id/edtInput"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/imghinhanh"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/border_edittext"
-            android:text="Đăng "
+            android:text="Câp Nhật "
+
             android:paddingRight="20dp"
-            android:layout_alignParentRight="true"
+           android:layout_centerInParent="true"
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:id="@+id/btnDang"
             android:paddingLeft="20dp"
-            android:layout_below="@+id/edtInput"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border_edittext"
-            android:text="Chọn hình "
-            android:paddingRight="20dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/btnchonhinh"
-            android:paddingLeft="20dp"
-            android:layout_below="@+id/edtInput"/>
+            android:layout_below="@+id/imghinhanh"/>
+
     </RelativeLayout>
-</RelativeLayout>
+</ScrollView>

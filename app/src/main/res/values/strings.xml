@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">BlogApp</string>
     <string name="country_prompt">Choose a Status</string>
-
+    <string name="facebook_app_id">1932586997063123</string>
     <string-array name="status">
         <item>Draff</item>
         <item>Pending</item>
