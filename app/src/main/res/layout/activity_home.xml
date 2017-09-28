@@ -13,9 +13,9 @@
        android:id="@+id/btnInput"
        android:layout_marginTop="10dp"
        android:minHeight="70dp"
-
+android:visibility="gone"
        android:background="@drawable/border_edittext"
-       android:text="Bạn đang nghĩ gì">
+       android:text="Đăng bài mới nào!!">
 
    </Button>
    <ListView

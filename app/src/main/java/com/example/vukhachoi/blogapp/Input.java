@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 
@@ -66,7 +67,7 @@ imgtest=findViewById(R.id.imgtest);
                 byte[] byteArray = byteArrayOutputStream .toByteArray();
                 String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
-//                try {
+                try {
                 ContentValues values=new ContentValues();
                 values.put("title",edtTitle.getText().toString());
                 values.put("description",edtInput.getText().toString());
@@ -78,11 +79,11 @@ imgtest=findViewById(R.id.imgtest);
                     database.insertWithOnConflict("Blog", null, values, SQLiteDatabase.CONFLICT_FAIL);
 
                     finish();
-//                }
-//                catch (Exception e)
-//                {
-//                    Toast.makeText(Input.this, "Các trường không được bỏ trống", Toast.LENGTH_SHORT).show();
-//                }
+                }
+                catch (Exception e)
+                {
+                    Toast.makeText(Input.this, "Các trường không được bỏ trống", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

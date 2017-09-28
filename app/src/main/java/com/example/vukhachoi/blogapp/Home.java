@@ -7,8 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,26 +28,24 @@ public class Home extends AppCompatActivity {
     Databasehelper myDatabase;
     SQLiteDatabase database;
     List<Blog>blogList;
+    String info;
     StatusAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
         lsvStatus=findViewById(R.id.lsvStatus);
         btnInput=findViewById(R.id.btnInput);
         myDatabase = new Databasehelper(this);
         myDatabase.Khoitai();
         database = myDatabase.getMyDatabase();
         blogList=new ArrayList<>();
-        Cursor cursor =database.rawQuery("Select * from Blog ",null);
-        cursor.moveToFirst();
+Intent intent1=getIntent();
+ info=intent1.getStringExtra("admin");
 
-        while (!cursor.isAfterLast())
-        {
-            blogList.add(0,new Blog(cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getInt(4),cursor.getString(5)));
-            cursor.moveToNext();
-        }
+
 adapter=new StatusAdapter(Home.this,R.layout.status_item,blogList);
         lsvStatus.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -54,38 +56,20 @@ adapter=new StatusAdapter(Home.this,R.layout.status_item,blogList);
         btnInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                dialog = new Dialog(Home.this);
-//
-//                dialog.setContentView(R.layout.dialog_input);
-//
-//                dialog.setTitle("Đăng kí");
-//
-//
-//                Button btnDang = (Button) dialog.findViewById(R.id.btnDang);
-//                // khai báo control trong dialog để bắt sự kiện
-//                btnDang.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//
-//                        Cursor cursor =database.rawQuery("Select * from Blog ",null);
-//                        cursor.moveToFirst();
-//
-//                        while (!cursor.isAfterLast())
-//                        {
-//                            Log.d("xx",cursor.getString(1));
-//                            Log.d("xx",cursor.getString(2));
-//                            Log.d("xx",cursor.getString(3));
-//                            Log.d("xx",cursor.getInt(4)+"");
-//                            Log.d("xx",cursor.getString(5));
-//                            cursor.moveToNext();
-//                        }
-//                    }
-//                });
-//                // bắt sự kiện cho nút đăng kí
-//                dialog.show();
+
                 Intent intent=new Intent(Home.this,Input.class);
                 startActivity(intent);
 
+            }
+        });
+
+        lsvStatus.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+Intent intent =new Intent(Home.this,Detail.class);
+
+intent.putExtra("blog",blogList.get(i));
+startActivity(intent);
             }
         });
 
@@ -96,13 +80,23 @@ adapter=new StatusAdapter(Home.this,R.layout.status_item,blogList);
         super.onStart();
         Cursor cursor =database.rawQuery("Select * from Blog ",null);
         cursor.moveToFirst();
-
+        try{
+blogList.clear();
         while (!cursor.isAfterLast())
         {
-            blogList.add(0,new Blog(cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getInt(4),cursor.getString(5)));
+            if(info.equals("admin")) {
+                blogList.add(0, new Blog(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4), cursor.getString(5), "admin",cursor.getString(0)));
+            btnInput.setVisibility(View.VISIBLE);
+
+
+            } else if(info.equals("User")){
+                blogList.add(0, new Blog(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4), cursor.getString(5), "User",cursor.getString(0)));
+
+
+            }
             cursor.moveToNext();
         }
-        try{
+
             adapter.notifyDataSetChanged();
         }
         catch (Exception e){}
